@@ -566,6 +566,34 @@ oc project
 Using project "labproj01" on server "https://nice-cluster-3f022ac5fd-master-0.IBM-OpenShift.cloud:8443".
 ```
 
+Import `client-ca.crt` certificate in your system to be able to connect to docker registry:
+
+```bash
+sudo cp client-ca.crt /usr/local/share/ca-certificates/ibm/
+sudo update-ca-certificates
+sudo systemctl restart docker
+```
+
+Results:
+
+```
+Updating certificates in /etc/ssl/certs...
+1 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+
+updates of cacerts keystore disabled.
+Updating Mono key store
+Linux Cert Store Sync - version 4.6.2.0
+Synchronize local certs with certs from local Linux trust store.
+Copyright 2002, 2003 Motus Technologies. Copyright 2004-2008 Novell. BSD licensed.
+
+I already trust 133, your new list has 134
+Certificate added: CN=openshift-signer@some_id
+1 new root certificates were added to your trust store.
+Import process completed.
+Done
+```
+
 Your OpenShift registry is located at : **docker-registry-default.apps.<infraIP@>.xip.io**
 
 In your application directory **newappproj**, login to your Docker registry in your cluster:
